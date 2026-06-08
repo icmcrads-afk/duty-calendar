@@ -185,7 +185,7 @@
 
     /* 날짜 숫자 */
     .d-num {
-      font-size: 0.88rem;
+      font-size: clamp(0.70rem, 2.4vw, 0.88rem);
       font-weight: 700;
       line-height: 1.3;
     }
@@ -205,25 +205,26 @@
 
     /* 공휴일 이름 */
     .hol-name {
-      font-size: 0.62rem;
+      font-size: clamp(0.46rem, 1.6vw, 0.62rem);
       color: var(--hol-txt);
       margin-bottom: 2px;
-      white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     /* ===== 배정 배지(슬롯) ===== */
     .slot {
       display: block;
       border-radius: 3px;
-      padding: 1px 4px;
+      padding: 1px 3px;
       margin-top: 2px;
-      font-size: 0.70rem;
-      line-height: 1.4;
-      white-space: nowrap;
+      /* 화면 너비에 따라 글씨가 자동 조절됨 (최소 0.50rem ~ 최대 0.70rem) */
+      font-size: clamp(0.50rem, 1.85vw, 0.70rem);
+      line-height: 1.35;
+      word-break: keep-all; /* 한글 단어 단위로 줄바꿈 */
       overflow: hidden;
-      text-overflow: ellipsis;
+      /* white-space: nowrap 제거 → ... 없이 줄바꿈으로 처리 */
     }
     .slot-duty  { background: var(--duty-bg);  color: var(--duty-txt); }
     .slot-am    { background: var(--am-bg);    color: var(--am-txt); }
@@ -433,6 +434,38 @@
     }
     .stats-table th { background: #f0f4f8; font-weight: 700; }
 
+    /* ===== 비밀번호 게이트 ===== */
+    .pw-gate {
+      display: none; position: fixed; inset: 0;
+      background: var(--primary); z-index: 200;
+      align-items: center; justify-content: center;
+    }
+    .pw-gate.show { display: flex; }
+    .pw-card {
+      background: #fff; border-radius: 12px;
+      padding: 36px 32px; width: min(90vw, 340px);
+      text-align: center; box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+    }
+    .pw-card h2 { font-size: 1.1rem; color: var(--primary); margin-bottom: 6px; }
+    .pw-card p  { font-size: 0.80rem; color: var(--muted); margin-bottom: 20px; }
+    .pw-input {
+      width: 100%; padding: 10px 12px; font-size: 1rem;
+      border: 1.5px solid var(--border); border-radius: 6px;
+      font-family: inherit; text-align: center; letter-spacing: 3px;
+      margin-bottom: 12px;
+    }
+    .pw-input:focus { outline: none; border-color: var(--primary); }
+    .pw-submit {
+      width: 100%; padding: 10px; font-size: 0.95rem;
+      background: var(--primary); color: #fff; border: none;
+      border-radius: 6px; cursor: pointer; font-family: inherit;
+    }
+    .pw-submit:hover { background: var(--primary-dk); }
+    .pw-error {
+      font-size: 0.78rem; color: #b71c1c;
+      margin-top: 10px; min-height: 18px;
+    }
+
     /* ===== 모바일 반응형 ===== */
     @media (max-width: 500px) {
       .day-cell  { min-height: 60px; padding: 3px; }
@@ -444,6 +477,19 @@
   </style>
 </head>
 <body>
+
+<!-- 비밀번호 게이트 (SITE_PASSWORD가 설정된 경우에만 표시) -->
+<div class="pw-gate" id="pw-gate">
+  <div class="pw-card">
+    <h2>방사선과 당직표</h2>
+    <p>접근 비밀번호를 입력하세요<br><span style="font-size:0.75rem;color:#888;">힌트: 5촬영실</span></p>
+    <input type="password" id="pw-input" class="pw-input"
+      placeholder="비밀번호" maxlength="30" autocomplete="off"
+      onkeydown="if(event.key==='Enter') submitPassword()">
+    <button class="pw-submit" onclick="submitPassword()">확인</button>
+    <div class="pw-error" id="pw-error"></div>
+  </div>
+</div>
 
 <!-- 상단 헤더 -->
 <header class="app-header">
@@ -595,7 +641,7 @@ const FIREBASE_CONFIG = {
 };
 
 // [Phase 4에서 채울 것] 사이트 공용 비밀번호
-const SITE_PASSWORD = '';
+const SITE_PASSWORD = '6455';
 
 // 초기 인원 명단 (실제 이름으로 바꾸세요)
 // - from        : 이 명단이 적용되기 시작하는 날짜 (YYYY-MM-DD)
@@ -955,9 +1001,10 @@ function buildDutyContent(cell, dateStr, holName, isToday, classes) {
     }
   }
 
-  // 점심: 따라감(↓) 또는 고정(📌) 표시
+  // 점심: 따라감(↓) 또는 고정(📌) 표시 — 모바일에서 레이블 줄임
   if (lunch) {
-    const lunchLabel = lunch.fixed ? `점심📌 ${lunch.name}` : `점심↓ ${lunch.name}`;
+    const prefix     = window.innerWidth < 480 ? '점' : '점심';
+    const lunchLabel = lunch.fixed ? `${prefix}📌 ${lunch.name}` : `${prefix}↓ ${lunch.name}`;
     const isMine     = myName && lunch.name === myName;
     const el         = document.createElement('span');
     el.className     = `slot ${isMine ? 'slot-mine' : 'slot-lunch'}`;
@@ -998,13 +1045,19 @@ function makeHolName(name) {
   return el;
 }
 
+// 화면이 좁을 때 레이블을 줄인다 (... 방지)
+const LABEL_SHORT = { '당직':'당', '오전':'전', '오후':'후', '조기':'조' };
+function shortLabel(label) {
+  return window.innerWidth < 480 ? (LABEL_SHORT[label] || label) : label;
+}
+
 // 배정 배지를 생성해 부모에 붙인다 (name이 없으면 건너뜀)
 function appendSlot(parent, label, name, colorClass) {
   if (!name) return; // null/undefined 방어
   const isMine = myName && name === myName;
   const el     = document.createElement('span');
   el.className = `slot ${isMine ? 'slot-mine' : colorClass}`;
-  el.textContent = `${label} ${name}`;
+  el.textContent = `${shortLabel(label)} ${name}`;
   parent.appendChild(el);
 }
 
@@ -1803,6 +1856,40 @@ nameInput.addEventListener('input', () => {
 // =============================================================
 // ===== 초기화 =====
 // =============================================================
+// =============================================================
+// ===== 비밀번호 게이트 (Phase 4) =====
+// =============================================================
+
+const PW_STORAGE_KEY = 'dutycal_auth'; // localStorage 키
+
+// 비밀번호 확인 버튼 핸들러
+window.submitPassword = function () {
+  const input = document.getElementById('pw-input').value;
+  if (input === SITE_PASSWORD) {
+    localStorage.setItem(PW_STORAGE_KEY, SITE_PASSWORD);
+    document.getElementById('pw-gate').classList.remove('show');
+  } else {
+    document.getElementById('pw-error').textContent = '비밀번호가 틀렸습니다.';
+    document.getElementById('pw-input').value = '';
+    document.getElementById('pw-input').focus();
+  }
+};
+
+// 페이지 로드 시 비밀번호 확인 (SITE_PASSWORD가 설정된 경우에만)
+function checkAuth() {
+  if (!SITE_PASSWORD) return; // 비밀번호 미설정 시 게이트 없음
+  const saved = localStorage.getItem(PW_STORAGE_KEY);
+  if (saved !== SITE_PASSWORD) {
+    // 저장된 비밀번호가 없거나 틀리면 게이트 표시
+    document.getElementById('pw-gate').classList.add('show');
+    setTimeout(() => document.getElementById('pw-input').focus(), 100);
+  }
+}
+
+// =============================================================
+// ===== 초기화 =====
+// =============================================================
+checkAuth();
 loadLocalHolidays(); // 로컬에 저장된 추가 공휴일을 먼저 불러온다
 renderCalendar();
 renderHolidayList();
