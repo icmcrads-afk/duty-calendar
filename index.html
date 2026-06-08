@@ -323,6 +323,116 @@
     .hol-del-btn:hover { background: #ffebee; }
     .hol-empty { font-size: 0.78rem; color: var(--muted); font-style: italic; }
 
+    /* ===== 모달 오버레이 ===== */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.45); z-index: 100;
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-card {
+      background: var(--surface); border-radius: var(--radius);
+      padding: 18px; width: min(94vw, 420px);
+      max-height: 85vh; overflow-y: auto;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+    }
+    .modal-head {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 12px;
+    }
+    .modal-head h3 { font-size: 0.95rem; color: var(--primary); }
+    .modal-close-btn {
+      background: none; border: none; font-size: 1.3rem;
+      cursor: pointer; color: var(--muted); line-height: 1; padding: 0 4px;
+    }
+    .modal-slot-row {
+      display: flex; align-items: center; gap: 5px;
+      padding: 8px 0; border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .modal-slot-label {
+      font-size: 0.73rem; font-weight: 700; color: var(--muted); min-width: 42px;
+    }
+    .modal-slot-name { font-size: 0.85rem; font-weight: 700; flex: 1; min-width: 50px; }
+    .modal-select {
+      font-size: 0.76rem; padding: 3px 4px; border: 1px solid var(--border);
+      border-radius: 4px; font-family: inherit;
+    }
+    .modal-btn {
+      font-size: 0.71rem; padding: 3px 7px; border-radius: 4px;
+      cursor: pointer; font-family: inherit;
+      border: 1px solid var(--border); background: var(--surface);
+      white-space: nowrap;
+    }
+    .modal-btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .modal-btn.danger  { background: #ffebee; color: #b71c1c; border-color: #ef9a9a; }
+    .modal-swap-area {
+      width: 100%; margin-top: 6px; padding: 8px;
+      background: #f4f6f9; border-radius: 4px; display: none;
+    }
+    .modal-swap-area.open { display: block; }
+    .modal-swap-area label { font-size: 0.73rem; color: var(--muted); display: block; margin-bottom: 5px; }
+    .modal-swap-row { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; }
+    .modal-swap-row input, .modal-swap-row select {
+      font-size: 0.76rem; padding: 3px 5px; border: 1px solid var(--border);
+      border-radius: 4px; font-family: inherit;
+    }
+
+    /* ===== 변경 내역 탭 ===== */
+    #logs-view { padding: 10px 14px; max-width: 700px; margin: 0 auto; }
+    .log-item {
+      display: flex; gap: 8px; align-items: flex-start;
+      padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 0.79rem;
+    }
+    .log-tag {
+      font-size: 0.67rem; padding: 2px 7px; border-radius: 10px;
+      font-weight: 700; white-space: nowrap; align-self: center;
+    }
+    .log-tag.duty  { background: var(--duty-bg);  color: var(--duty-txt); }
+    .log-tag.lunch { background: var(--lunch-bg); color: var(--lunch-txt); }
+    .log-tag.early { background: var(--early-bg); color: var(--early-txt); }
+    .log-tag.swap  { background: #e8f5e9; color: #1b5e20; }
+    .log-tag.seg   { background: #e8eaf6; color: #283593; }
+    .log-body { flex: 1; line-height: 1.6; }
+    .log-time { font-size: 0.70rem; color: var(--muted); white-space: nowrap; align-self: center; }
+    .log-empty { text-align: center; color: var(--muted); padding: 30px 0; font-size: 0.85rem; }
+
+    /* ===== 설정 패널 확장: 인원 관리 / 조기 설정 / 통계 ===== */
+    .settings-section { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); }
+    .settings-section-title { font-weight: 700; margin-bottom: 8px; font-size: 0.85rem; }
+    .seg-item {
+      background: #f4f6f9; border-radius: 5px; padding: 8px 11px;
+      margin-bottom: 6px; font-size: 0.79rem;
+    }
+    .seg-item-head {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;
+    }
+    .seg-from { font-weight: 700; color: var(--primary); }
+    .seg-members { color: var(--muted); font-size: 0.73rem; margin-top: 2px; }
+    .seg-del-btn {
+      background: #ffebee; border: 1px solid #ef9a9a; color: #b71c1c;
+      border-radius: 4px; padding: 2px 8px; cursor: pointer;
+      font-size: 0.70rem; font-family: inherit;
+    }
+    .seg-add-form { display: flex; flex-direction: column; gap: 5px; margin-top: 8px; }
+    .seg-add-form input {
+      font-size: 0.79rem; padding: 5px 8px; border: 1px solid var(--border);
+      border-radius: 4px; font-family: inherit;
+    }
+    .seg-add-form button {
+      font-size: 0.79rem; padding: 5px 12px; border-radius: 4px; cursor: pointer;
+      background: var(--primary); color: #fff; border: none; font-family: inherit; align-self: flex-start;
+    }
+    .stats-toggle { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; }
+    .stats-toggle input { cursor: pointer; }
+    .stats-table {
+      width: 100%; border-collapse: collapse; font-size: 0.78rem; margin-top: 8px;
+    }
+    .stats-table th, .stats-table td {
+      border: 1px solid var(--border); padding: 5px 8px; text-align: center;
+    }
+    .stats-table th { background: #f0f4f8; font-weight: 700; }
+
     /* ===== 모바일 반응형 ===== */
     @media (max-width: 500px) {
       .day-cell  { min-height: 60px; padding: 3px; }
@@ -341,7 +451,7 @@
   <div style="display:flex;align-items:center;gap:10px;">
     <button onclick="toggleSettings()"
       style="background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.35);border-radius:5px;padding:4px 11px;cursor:pointer;color:#fff;font-size:0.80rem;font-family:inherit;">
-      ⚙ 공휴일 관리
+      ⚙ 설정
     </button>
     <span id="sync-status">로컬 모드</span>
   </div>
@@ -354,8 +464,10 @@
   <span>← 입력하면 내 일정이 초록 테두리로 강조됩니다</span>
 </div>
 
-<!-- 공휴일 관리 패널 (헤더 버튼으로 열고 닫음) -->
+<!-- 설정 패널 (헤더 버튼으로 열고 닫음) -->
 <div class="settings-panel" id="settings-panel">
+
+  <!-- 공휴일 관리 -->
   <div class="settings-title">임시 공휴일 추가</div>
   <p class="settings-desc">예상치 못한 휴일(임시공휴일 등)을 추가합니다. 추가된 날은 공휴일로 처리됩니다.</p>
   <div class="settings-form">
@@ -364,6 +476,36 @@
     <button onclick="addCustomHoliday()">추가</button>
   </div>
   <div id="custom-hol-list"><div class="hol-empty">추가된 공휴일이 없습니다.</div></div>
+
+  <!-- 인원 관리 (기간별 명단) -->
+  <div class="settings-section">
+    <div class="settings-section-title">인원 관리 (기간별 명단)</div>
+    <p class="settings-desc">인원이 바뀔 때 새 명단을 추가하세요. 그 날부터 새 명단으로 배정됩니다.</p>
+    <div id="seg-list"></div>
+    <div class="seg-add-form">
+      <input type="date"  id="seg-from-input"        placeholder="적용 시작일">
+      <input type="text"  id="seg-members-input"     placeholder="인원 (쉼표로 구분, 예: 홍길동,김영희,이철수)" maxlength="200">
+      <input type="text"  id="seg-duty-start-input"  placeholder="첫 당직자 이름 (위 인원 중 하나)" maxlength="20">
+      <input type="text"  id="seg-early-start-input" placeholder="첫 조기출근자 (빈칸이면 첫 번째 인원)" maxlength="20">
+      <button onclick="addSegment()">명단 추가</button>
+    </div>
+  </div>
+
+  <!-- 조기출근 설정 -->
+  <div class="settings-section">
+    <div class="settings-section-title">조기출근 설정</div>
+    <label class="stats-toggle">
+      <input type="checkbox" id="early-weekend-chk" onchange="toggleEarlyWeekend(this.checked)">
+      주말·공휴일에도 조기출근 담당자 표시
+    </label>
+  </div>
+
+  <!-- 이번 달 배정 횟수 -->
+  <div class="settings-section">
+    <div class="settings-section-title">이번 달 배정 횟수</div>
+    <div id="stats-area"></div>
+  </div>
+
 </div>
 
 <!-- 동기화/오류 안내 (평소에는 숨김) -->
@@ -381,6 +523,7 @@
 <div class="tabs">
   <button class="tab-btn active" id="tab-duty"  onclick="switchTab('duty')">당직 · 점심</button>
   <button class="tab-btn"        id="tab-early" onclick="switchTab('early')">조기출근</button>
+  <button class="tab-btn"        id="tab-logs"  onclick="switchTab('logs')">변경내역</button>
 </div>
 
 <!-- 달력 영역 -->
@@ -418,6 +561,20 @@
   </div>
   <div class="leg-item">
     <div class="leg-dot" style="background:var(--mine-bg);border:2px solid var(--mine-bdr);"></div> 내 일정
+  </div>
+</div>
+
+<!-- 변경 내역 탭 콘텐츠 (logs 탭 선택 시 표시) -->
+<div id="logs-view" style="display:none;"></div>
+
+<!-- 슬롯 클릭 모달 -->
+<div class="modal-overlay" id="slot-modal" onclick="handleModalOverlayClick(event)">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 id="modal-date-title"></h3>
+      <button class="modal-close-btn" onclick="closeModal()">✕</button>
+    </div>
+    <div id="modal-slots"></div>
   </div>
 </div>
 
@@ -764,6 +921,9 @@ function buildCell(dateStr, today) {
   }
 
   cell.className = classes.join(' ');
+  // 날짜 셀 클릭 시 슬롯 편집 모달 열기
+  cell.style.cursor = 'pointer';
+  cell.addEventListener('click', () => window.openModal(dateStr));
   return cell;
 }
 
@@ -943,9 +1103,18 @@ function renderHolidayList() {
   container.appendChild(list);
 }
 
-// 설정 패널 열기/닫기 토글
+// 설정 패널 열기/닫기 토글 — 열 때 인원 목록과 통계를 갱신한다
 window.toggleSettings = function () {
-  document.getElementById('settings-panel').classList.toggle('open');
+  const panel = document.getElementById('settings-panel');
+  const isOpening = !panel.classList.contains('open');
+  panel.classList.toggle('open');
+  if (isOpening) {
+    renderSegments();
+    renderStats();
+    // 조기출근 주말 포함 체크박스 상태 동기화
+    const chk = document.getElementById('early-weekend-chk');
+    if (chk) chk.checked = appState.earlyIncludeWeekend;
+  }
 };
 
 // =============================================================
@@ -1018,8 +1187,17 @@ async function initFirebase() {
 
       isFirestoreMode = true;
       document.getElementById('sync-status').textContent = '🟢 실시간 연결됨';
-      renderCalendar();
+      if (activeTab === 'logs') {
+        renderLogs();
+      } else {
+        renderCalendar();
+      }
       renderHolidayList();
+      // 설정 패널이 열려 있으면 인원 목록과 통계도 갱신
+      if (document.getElementById('settings-panel').classList.contains('open')) {
+        renderSegments();
+        renderStats();
+      }
     }, (err) => {
       showError('Firestore 연결 오류: ' + err.message);
     });
@@ -1031,6 +1209,518 @@ async function initFirebase() {
 }
 
 // =============================================================
+// ===== 모달 (날짜 클릭 팝업) =====
+// =============================================================
+
+// 날짜 셀 클릭 시 슬롯 편집 모달을 연다
+window.openModal = function (dateStr) {
+  const modal     = document.getElementById('slot-modal');
+  const slotsDiv  = document.getElementById('modal-slots');
+  const seg       = getSegment(dateStr);
+  const members   = seg ? seg.members : [];
+
+  document.getElementById('modal-date-title').textContent = formatDateKo(dateStr);
+  slotsDiv.innerHTML = '';
+
+  // 당직 슬롯
+  const duty = getDuty(dateStr);
+  if (duty) {
+    if (duty.D !== undefined) {
+      slotsDiv.appendChild(makeModalSlotRow(dateStr, 'D', '당직', duty.D, members));
+    } else {
+      slotsDiv.appendChild(makeModalSlotRow(dateStr, 'AM', '오전당직', duty.AM, members));
+      slotsDiv.appendChild(makeModalSlotRow(dateStr, 'PM', '오후당직', duty.PM, members));
+    }
+  }
+
+  // 점심 슬롯 (근무일에만)
+  const lunch = getLunch(dateStr);
+  if (lunch) {
+    slotsDiv.appendChild(makeModalLunchRow(dateStr, lunch, members));
+  }
+
+  // 조기출근 슬롯
+  const earlyName = getEarly(dateStr);
+  if (earlyName) {
+    slotsDiv.appendChild(makeModalSlotRow(dateStr, 'E', '조기출근', earlyName, members));
+  }
+
+  if (slotsDiv.children.length === 0) {
+    slotsDiv.innerHTML = '<p style="color:var(--muted);font-size:0.82rem;padding:10px 0;">이 날은 배정된 슬롯이 없습니다.</p>';
+  }
+
+  modal.classList.add('open');
+};
+
+// 날짜를 한국어로 포맷한다 (예: 2026년 6월 10일 (화))
+function formatDateKo(dateStr) {
+  const [y, m, d]  = dateStr.split('-').map(Number);
+  const dowNames   = ['일','월','화','수','목','금','토'];
+  return `${y}년 ${m}월 ${d}일 (${dowNames[getDow(dateStr)]})`;
+}
+
+// 모달을 닫는다
+window.closeModal = function () {
+  document.getElementById('slot-modal').classList.remove('open');
+};
+
+// 모달 오버레이(배경) 클릭 시 닫기
+window.handleModalOverlayClick = function (e) {
+  if (e.target === document.getElementById('slot-modal')) closeModal();
+};
+
+// 당직·조기출근 슬롯 행 DOM을 만든다
+function makeModalSlotRow(dateStr, kind, label, name, members) {
+  const row = document.createElement('div');
+  row.className = 'modal-slot-row';
+
+  const labelEl = document.createElement('span');
+  labelEl.className   = 'modal-slot-label';
+  labelEl.textContent = label;
+
+  const nameEl = document.createElement('span');
+  nameEl.className   = 'modal-slot-name';
+  nameEl.textContent = name;
+
+  // 변경용 드롭다운
+  const sel = document.createElement('select');
+  sel.className = 'modal-select';
+  members.forEach(m => {
+    const opt = document.createElement('option');
+    opt.value   = m;
+    opt.textContent = m;
+    if (m === name) opt.selected = true;
+    sel.appendChild(opt);
+  });
+
+  const reassignBtn = document.createElement('button');
+  reassignBtn.className   = 'modal-btn primary';
+  reassignBtn.textContent = '변경';
+  reassignBtn.onclick     = () => doReassign(dateStr, kind, sel.value);
+
+  const swapBtn = document.createElement('button');
+  swapBtn.className   = 'modal-btn';
+  swapBtn.textContent = '맞교대↔';
+  swapBtn.onclick     = () => area.classList.toggle('open');
+
+  // 맞교대 입력 영역 (기본 숨김)
+  const area = document.createElement('div');
+  area.className = 'modal-swap-area';
+  area.innerHTML = `
+    <label>교대할 날짜와 슬롯 선택</label>
+    <div class="modal-swap-row">
+      <input type="date" class="swap-date-input" value="${dateStr}">
+      <select class="swap-kind-select">
+        <option value="D">당직</option>
+        <option value="AM">오전당직</option>
+        <option value="PM">오후당직</option>
+        <option value="L">점심</option>
+        <option value="E">조기출근</option>
+      </select>
+      <button class="modal-btn primary swap-confirm-btn">교대</button>
+    </div>
+  `;
+  area.querySelector('.swap-confirm-btn').onclick = () => doSwapFromArea(dateStr, kind, area);
+
+  row.append(labelEl, nameEl, sel, reassignBtn, swapBtn, area);
+  return row;
+}
+
+// 점심 슬롯 행 — 고정/해제 버튼 포함
+function makeModalLunchRow(dateStr, lunch, members) {
+  const row = document.createElement('div');
+  row.className = 'modal-slot-row';
+
+  const labelEl = document.createElement('span');
+  labelEl.className   = 'modal-slot-label';
+  labelEl.textContent = '점심';
+
+  const nameEl = document.createElement('span');
+  nameEl.className   = 'modal-slot-name';
+  nameEl.textContent = lunch.name + (lunch.fixed ? ' 📌' : ' ↓');
+
+  const sel = document.createElement('select');
+  sel.className = 'modal-select';
+  members.forEach(m => {
+    const opt = document.createElement('option');
+    opt.value   = m;
+    opt.textContent = m;
+    if (m === lunch.name) opt.selected = true;
+    sel.appendChild(opt);
+  });
+
+  const reassignBtn = document.createElement('button');
+  reassignBtn.className   = 'modal-btn primary';
+  reassignBtn.textContent = '변경';
+  reassignBtn.onclick     = () => doReassign(dateStr, 'L', sel.value);
+
+  const pinBtn = document.createElement('button');
+  pinBtn.className   = `modal-btn ${lunch.fixed ? 'danger' : ''}`;
+  pinBtn.textContent = lunch.fixed ? '고정해제' : '고정📌';
+  pinBtn.onclick     = () => toggleLunchPin(dateStr, lunch);
+
+  const swapBtn = document.createElement('button');
+  swapBtn.className   = 'modal-btn';
+  swapBtn.textContent = '맞교대↔';
+  swapBtn.onclick     = () => area.classList.toggle('open');
+
+  const area = document.createElement('div');
+  area.className = 'modal-swap-area';
+  area.innerHTML = `
+    <label>교대할 날짜와 슬롯 선택</label>
+    <div class="modal-swap-row">
+      <input type="date" class="swap-date-input" value="${dateStr}">
+      <select class="swap-kind-select">
+        <option value="D">당직</option>
+        <option value="AM">오전당직</option>
+        <option value="PM">오후당직</option>
+        <option value="L">점심</option>
+        <option value="E">조기출근</option>
+      </select>
+      <button class="modal-btn primary swap-confirm-btn">교대</button>
+    </div>
+  `;
+  area.querySelector('.swap-confirm-btn').onclick = () => doSwapFromArea(dateStr, 'L', area);
+
+  row.append(labelEl, nameEl, sel, reassignBtn, pinBtn, swapBtn, area);
+  return row;
+}
+
+// =============================================================
+// ===== 변경 / 맞교대 / 점심 고정 =====
+// =============================================================
+
+// kind에 따라 사용할 override 맵 이름을 반환한다
+function overrideMapName(kind) {
+  if (kind === 'L') return 'lunchOverrides';
+  if (kind === 'E') return 'earlyOverrides';
+  return 'overrides';
+}
+
+// override 반영 전 현재 슬롯 담당자를 반환한다 (로그의 oldName 용)
+function getCurrentSlotName(dateStr, kind) {
+  if (kind === 'L') { const r = getLunch(dateStr); return r ? r.name : ''; }
+  if (kind === 'E') return getEarly(dateStr) || '';
+  const duty = getDuty(dateStr);
+  return duty ? (duty[kind] || '') : '';
+}
+
+// 슬롯 변경: 해당 날짜·kind 슬롯을 newName으로 교체하고 Firestore에 기록한다
+window.doReassign = async function (dateStr, kind, newName) {
+  const key    = `${dateStr}__${kind}`;
+  const mapKey = overrideMapName(kind);
+  const oldName = getCurrentSlotName(dateStr, kind);
+
+  appState[mapKey][key] = newName;
+
+  const kindLabel = { D:'당직', AM:'오전당직', PM:'오후당직', L:'점심', E:'조기출근' };
+  const logEntry = {
+    type:    kind === 'L' ? 'lunch' : kind === 'E' ? 'early' : 'duty',
+    action:  'reassign',
+    dateStr, kind, oldName, newName,
+    by: myName || '(이름 미설정)',
+    at: new Date().toISOString(),
+  };
+
+  if (isFirestoreMode && fsDocRef && _updateDoc) {
+    try {
+      await _updateDoc(fsDocRef, {
+        [`${mapKey}.${key}`]: newName,
+        logs: _arrayUnion(logEntry),
+      });
+    } catch (e) { showError('변경 저장 오류: ' + e.message); return; }
+  }
+
+  closeModal();
+  renderCalendar();
+};
+
+// 점심 고정/해제 — 고정 = 현재 이름을 override로 박음, 해제 = override 삭제
+window.toggleLunchPin = async function (dateStr, lunch) {
+  const key = `${dateStr}__L`;
+
+  if (lunch.fixed) {
+    // 고정 해제
+    delete appState.lunchOverrides[key];
+    const logEntry = {
+      type: 'lunch', action: 'unpin', dateStr,
+      by: myName || '(이름 미설정)', at: new Date().toISOString(),
+    };
+    if (isFirestoreMode && fsDocRef && _updateDoc && _deleteField) {
+      try {
+        await _updateDoc(fsDocRef, {
+          [`lunchOverrides.${key}`]: _deleteField(),
+          logs: _arrayUnion(logEntry),
+        });
+      } catch (e) { showError('고정 해제 오류: ' + e.message); return; }
+    }
+  } else {
+    // 고정: 현재 담당자를 override로 기록
+    appState.lunchOverrides[key] = lunch.name;
+    const logEntry = {
+      type: 'lunch', action: 'pin', dateStr, name: lunch.name,
+      by: myName || '(이름 미설정)', at: new Date().toISOString(),
+    };
+    if (isFirestoreMode && fsDocRef && _updateDoc) {
+      try {
+        await _updateDoc(fsDocRef, {
+          [`lunchOverrides.${key}`]: lunch.name,
+          logs: _arrayUnion(logEntry),
+        });
+      } catch (e) { showError('고정 저장 오류: ' + e.message); return; }
+    }
+  }
+
+  closeModal();
+  renderCalendar();
+};
+
+// 모달 내 맞교대 area에서 날짜·kind를 읽어 두 슬롯을 교체한다
+async function doSwapFromArea(dateStr1, kind1, area) {
+  const date2 = area.querySelector('.swap-date-input').value;
+  const kind2 = area.querySelector('.swap-kind-select').value;
+
+  if (!date2) { alert('교대할 날짜를 선택해주세요.'); return; }
+  if (date2 === dateStr1 && kind2 === kind1) {
+    alert('같은 슬롯과는 교대할 수 없습니다.'); return;
+  }
+
+  const name1 = getCurrentSlotName(dateStr1, kind1);
+  const name2 = getCurrentSlotName(date2, kind2);
+  if (!name1 || !name2) { alert('해당 슬롯의 담당자를 확인할 수 없습니다.'); return; }
+
+  const key1 = `${dateStr1}__${kind1}`;
+  const key2 = `${date2}__${kind2}`;
+  const map1 = overrideMapName(kind1);
+  const map2 = overrideMapName(kind2);
+
+  appState[map1][key1] = name2;
+  appState[map2][key2] = name1;
+
+  const logEntry = {
+    type: 'swap', action: 'swap',
+    slot1: { dateStr: dateStr1, kind: kind1, name: name1 },
+    slot2: { dateStr: date2,    kind: kind2, name: name2 },
+    by: myName || '(이름 미설정)', at: new Date().toISOString(),
+  };
+
+  if (isFirestoreMode && fsDocRef && _updateDoc && _arrayUnion) {
+    try {
+      await _updateDoc(fsDocRef, {
+        [`${map1}.${key1}`]: name2,
+        [`${map2}.${key2}`]: name1,
+        logs: _arrayUnion(logEntry),
+      });
+    } catch (e) { showError('맞교대 저장 오류: ' + e.message); return; }
+  }
+
+  closeModal();
+  renderCalendar();
+}
+
+// =============================================================
+// ===== 변경 내역 렌더링 =====
+// =============================================================
+
+// 변경 내역을 화면에 그린다 (최근 300개, 역순)
+function renderLogs() {
+  const view = document.getElementById('logs-view');
+  const logs = [...(appState.logs || [])].reverse().slice(0, 300);
+
+  if (logs.length === 0) {
+    view.innerHTML = '<div class="log-empty">변경 내역이 없습니다.</div>';
+    return;
+  }
+
+  view.innerHTML = '';
+  for (const log of logs) {
+    const item = document.createElement('div');
+    item.className = 'log-item';
+
+    const tag = document.createElement('span');
+    tag.className   = `log-tag ${log.type || 'duty'}`;
+    const tagLabels = { duty:'당직', lunch:'점심', early:'조기', swap:'교대', seg:'인원' };
+    tag.textContent = tagLabels[log.type] || log.type;
+
+    const body = document.createElement('div');
+    body.className   = 'log-body';
+    body.textContent = formatLogText(log);
+
+    const time = document.createElement('div');
+    time.className   = 'log-time';
+    time.textContent = log.at ? log.at.slice(0,16).replace('T',' ') : '';
+
+    item.append(tag, body, time);
+    view.appendChild(item);
+  }
+}
+
+// 로그 항목 하나를 읽기 좋은 문자열로 변환한다
+function formatLogText(log) {
+  const by = log.by || '';
+  const kl = { D:'당직', AM:'오전당직', PM:'오후당직', L:'점심', E:'조기출근' };
+  if (log.action === 'reassign') {
+    return `${log.dateStr} ${kl[log.kind]||log.kind}: ${log.oldName} → ${log.newName}  (${by})`;
+  }
+  if (log.action === 'swap') {
+    const s1 = log.slot1, s2 = log.slot2;
+    return `맞교대: ${s1.dateStr} ${kl[s1.kind]||s1.kind}(${s1.name}) ↔ ${s2.dateStr} ${kl[s2.kind]||s2.kind}(${s2.name})  (${by})`;
+  }
+  if (log.action === 'pin')     return `${log.dateStr} 점심 고정📌 → ${log.name}  (${by})`;
+  if (log.action === 'unpin')   return `${log.dateStr} 점심 고정 해제  (${by})`;
+  if (log.action === 'seg-add') return `인원 명단 추가: ${log.from}부터  (${by})`;
+  if (log.action === 'seg-del') return `인원 명단 삭제: ${log.from}  (${by})`;
+  return JSON.stringify(log);
+}
+
+// =============================================================
+// ===== 인원 관리 (세그먼트) =====
+// =============================================================
+
+// 인원 명단 목록을 설정 패널에 그린다
+function renderSegments() {
+  const list = document.getElementById('seg-list');
+  if (!list) return;
+  list.innerHTML = '';
+  const segs = appState.segments || [];
+
+  segs.forEach((seg, idx) => {
+    const item = document.createElement('div');
+    item.className = 'seg-item';
+    const canDelete = segs.length > 1;
+    item.innerHTML = `
+      <div class="seg-item-head">
+        <span class="seg-from">${seg.from} 부터</span>
+        ${canDelete
+          ? `<button class="seg-del-btn" data-idx="${idx}" onclick="deleteSegment(Number(this.dataset.idx))">삭제</button>`
+          : '<span style="font-size:0.70rem;color:var(--muted);">최소 1개</span>'}
+      </div>
+      <div class="seg-members">인원: ${seg.members.join(', ')}</div>
+      <div class="seg-members">첫 당직: ${seg.dutyStartName} / 첫 조기: ${seg.earlyStartName || seg.members[0]}</div>
+    `;
+    list.appendChild(item);
+  });
+}
+
+// 새 세그먼트를 추가한다
+window.addSegment = async function () {
+  const from    = document.getElementById('seg-from-input').value;
+  const members = document.getElementById('seg-members-input').value
+                    .split(',').map(s => s.trim()).filter(Boolean);
+  const dStart  = document.getElementById('seg-duty-start-input').value.trim();
+  const eStart  = document.getElementById('seg-early-start-input').value.trim();
+
+  if (!from)                { alert('적용 시작일을 입력해주세요.'); return; }
+  if (members.length === 0) { alert('인원을 한 명 이상 입력해주세요.'); return; }
+  if (!dStart)              { alert('첫 당직자 이름을 입력해주세요.'); return; }
+  if (!members.includes(dStart)) { alert('첫 당직자 이름이 인원 목록에 없습니다.'); return; }
+  if (appState.segments.some(s => s.from === from)) {
+    alert('같은 시작일의 명단이 이미 있습니다. 삭제 후 다시 추가해주세요.'); return;
+  }
+
+  const newSeg = { from, members, dutyStartName: dStart };
+  if (eStart && members.includes(eStart)) newSeg.earlyStartName = eStart;
+
+  const newSegs = [...appState.segments, newSeg].sort((a, b) => a.from.localeCompare(b.from));
+  appState.segments = newSegs;
+
+  const logEntry = {
+    type: 'seg', action: 'seg-add', from, members,
+    by: myName || '(이름 미설정)', at: new Date().toISOString(),
+  };
+
+  if (isFirestoreMode && fsDocRef && _updateDoc && _arrayUnion) {
+    try {
+      await _updateDoc(fsDocRef, { segments: newSegs, logs: _arrayUnion(logEntry) });
+    } catch (e) { showError('인원 저장 오류: ' + e.message); return; }
+  }
+
+  // 입력 초기화
+  ['seg-from-input','seg-members-input','seg-duty-start-input','seg-early-start-input']
+    .forEach(id => { document.getElementById(id).value = ''; });
+
+  renderSegments();
+  renderCalendar();
+};
+
+// 세그먼트를 삭제한다 (마지막 하나는 삭제 불가)
+window.deleteSegment = async function (idx) {
+  if (appState.segments.length <= 1) { alert('최소 1개의 인원 명단이 있어야 합니다.'); return; }
+  if (!confirm(`${appState.segments[idx].from} 명단을 삭제하시겠습니까?`)) return;
+
+  const deleted = appState.segments[idx];
+  const newSegs = appState.segments.filter((_, i) => i !== idx);
+  appState.segments = newSegs;
+
+  const logEntry = {
+    type: 'seg', action: 'seg-del', from: deleted.from,
+    by: myName || '(이름 미설정)', at: new Date().toISOString(),
+  };
+
+  if (isFirestoreMode && fsDocRef && _updateDoc && _arrayUnion) {
+    try {
+      await _updateDoc(fsDocRef, { segments: newSegs, logs: _arrayUnion(logEntry) });
+    } catch (e) { showError('명단 삭제 오류: ' + e.message); return; }
+  }
+
+  renderSegments();
+  renderCalendar();
+};
+
+// =============================================================
+// ===== 조기출근 주말 포함 토글 / 월별 횟수 =====
+// =============================================================
+
+// 조기출근 주말·공휴일 포함 여부를 토글하고 Firestore에 저장한다
+window.toggleEarlyWeekend = async function (checked) {
+  appState.earlyIncludeWeekend = checked;
+  if (isFirestoreMode && fsDocRef && _updateDoc) {
+    try {
+      await _updateDoc(fsDocRef, { earlyIncludeWeekend: checked });
+    } catch (e) { showError('설정 저장 오류: ' + e.message); }
+  }
+  renderCalendar();
+};
+
+// 이번 달 인원별 배정 횟수를 집계해 stats-area에 표로 그린다
+function renderStats() {
+  const area = document.getElementById('stats-area');
+  if (!area) return;
+
+  const firstDs = `${viewYear}-${String(viewMonth).padStart(2,'0')}-01`;
+  const seg     = getSegment(firstDs);
+  if (!seg) { area.innerHTML = '<div style="color:var(--muted);font-size:0.79rem;">인원 명단이 없습니다.</div>'; return; }
+
+  const members = seg.members;
+  const counts  = {};
+  members.forEach(m => { counts[m] = { duty: 0, lunch: 0, early: 0 }; });
+
+  const daysInMonth = new Date(viewYear, viewMonth, 0).getDate();
+  for (let d = 1; d <= daysInMonth; d++) {
+    const ds = `${viewYear}-${String(viewMonth).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const duty = getDuty(ds);
+    if (duty) {
+      if (duty.D  && counts[duty.D])  counts[duty.D].duty++;
+      if (duty.AM && counts[duty.AM]) counts[duty.AM].duty++;
+      if (duty.PM && counts[duty.PM]) counts[duty.PM].duty++;
+    }
+    const lunch = getLunch(ds);
+    if (lunch && counts[lunch.name]) counts[lunch.name].lunch++;
+    const early = getEarly(ds);
+    if (early && counts[early]) counts[early].early++;
+  }
+
+  let html = `<table class="stats-table">
+    <thead><tr><th>이름</th><th>당직</th><th>점심</th><th>조기출근</th></tr></thead><tbody>`;
+  for (const m of members) {
+    const c = counts[m] || { duty:0, lunch:0, early:0 };
+    html += `<tr><td>${m}</td><td>${c.duty}</td><td>${c.lunch}</td><td>${c.early}</td></tr>`;
+  }
+  html += '</tbody></table>';
+  area.innerHTML = html;
+}
+
+// =============================================================
 // ===== 탭 전환 =====
 // =============================================================
 
@@ -1039,7 +1729,24 @@ window.switchTab = function (tab) {
   activeTab = tab;
   document.getElementById('tab-duty') .classList.toggle('active', tab === 'duty');
   document.getElementById('tab-early').classList.toggle('active', tab === 'early');
-  renderCalendar();
+  document.getElementById('tab-logs') .classList.toggle('active', tab === 'logs');
+
+  // 달력 영역과 로그 영역을 탭에 따라 전환
+  const calWrap  = document.getElementById('cal-wrap');
+  const legend   = document.querySelector('.legend');
+  const logsView = document.getElementById('logs-view');
+
+  if (tab === 'logs') {
+    calWrap.style.display  = 'none';
+    legend.style.display   = 'none';
+    logsView.style.display = 'block';
+    renderLogs();
+  } else {
+    calWrap.style.display  = '';
+    legend.style.display   = '';
+    logsView.style.display = 'none';
+    renderCalendar();
+  }
 };
 
 // =============================================================
