@@ -605,9 +605,11 @@ const SITE_PASSWORD = '';
 const DEFAULT_SEGMENTS = [
   {
     from: '2026-06-01',
-    members: ['홍길동', '김영희', '이철수', '박지수', '최민준'],
-    dutyStartName: '홍길동',
-    earlyStartName: '홍길동',
+    members:      ['안철경', '김희영', '최석훈', '임나영', '이희진', '김인하', '최민석', '김지윤', '강인구', '조혜성', '안재만', '최세린'],
+    dutyStartName: '안철경',
+    // 조기출근 전용 명단 (당직 명단과 다를 때만 사용)
+    earlyMembers:  ['김인하', '최민석', '안철경', '김지윤', '최석훈', '김범각', '안재만', '조혜성', '임나영', '최세린'],
+    earlyStartName: '김인하',
   },
 ];
 
@@ -830,9 +832,11 @@ function getEarly(dateStr) {
   const seg = getSegment(dateStr);
   if (!seg || seg.members.length === 0) return null;
 
-  const n              = seg.members.length;
-  const earlyStartName = seg.earlyStartName || seg.members[0];
-  const earlyStartIdx  = seg.members.indexOf(earlyStartName);
+  // earlyMembers가 있으면 조기출근 전용 명단, 없으면 당직 명단으로 대체
+  const earlyList      = (seg.earlyMembers && seg.earlyMembers.length > 0) ? seg.earlyMembers : seg.members;
+  const n              = earlyList.length;
+  const earlyStartName = seg.earlyStartName || earlyList[0];
+  const earlyStartIdx  = earlyList.indexOf(earlyStartName);
   if (earlyStartIdx === -1) return null;
 
   // 주차 인덱스: (이번 주 월요일 dayNum − 세그먼트 from주 월요일 dayNum) / 7
@@ -840,7 +844,7 @@ function getEarly(dateStr) {
   const fromMon    = getMondayNum(seg.from);
   const weekIndex  = Math.floor((thisMon - fromMon) / 7);
 
-  return seg.members[(earlyStartIdx + weekIndex) % n];
+  return earlyList[(earlyStartIdx + weekIndex) % n];
 }
 
 // =============================================================
@@ -1595,8 +1599,9 @@ function renderSegments() {
           ? `<button class="seg-del-btn" data-idx="${idx}" onclick="deleteSegment(Number(this.dataset.idx))">삭제</button>`
           : '<span style="font-size:0.70rem;color:var(--muted);">최소 1개</span>'}
       </div>
-      <div class="seg-members">인원: ${seg.members.join(', ')}</div>
-      <div class="seg-members">첫 당직: ${seg.dutyStartName} / 첫 조기: ${seg.earlyStartName || seg.members[0]}</div>
+      <div class="seg-members">당직 인원: ${seg.members.join(', ')}</div>
+      <div class="seg-members">조기출근 인원: ${seg.earlyMembers ? seg.earlyMembers.join(', ') : '(당직 명단과 동일)'}</div>
+      <div class="seg-members">첫 당직: ${seg.dutyStartName} / 첫 조기: ${seg.earlyStartName || (seg.earlyMembers || seg.members)[0]}</div>
     `;
     list.appendChild(item);
   });
